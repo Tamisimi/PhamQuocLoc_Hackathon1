@@ -76,11 +76,11 @@ DoubleNode* updateOrder(DoubleNode *head, int id) {
         if (current->order.id == id) {
             printf("Enter new customer: ");
             fgets(current->order.customer, 50, stdin);
-            current->order.customer[strcspn(current->order.customer, "\n")] = '\0'; // Xoá '\n'
+            current->order.customer[strcspn(current->order.customer, "\n")] = '\0';
 
             printf("Enter new total: ");
             scanf("%d", &current->order.total);
-            getchar(); // clear buffer
+            getchar();
 
             printf("Update succeeded.\n");
             return head;
