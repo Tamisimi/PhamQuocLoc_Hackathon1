@@ -6,7 +6,7 @@ typedef struct Order {
     int id;
     char customer[50];
     int total;
-    int status; // 0: chưa giao, 1: đã giao
+    int status;
 } Order;
 
 typedef struct DoubleNode {
@@ -17,7 +17,6 @@ typedef struct DoubleNode {
 
 DoubleNode *headDouble = NULL;
 
-// Tạo node mới
 DoubleNode *createDoubleNode(Order order) {
     DoubleNode *newNode = (DoubleNode *)malloc(sizeof(DoubleNode));
     newNode->order = order;
@@ -26,7 +25,6 @@ DoubleNode *createDoubleNode(Order order) {
     return newNode;
 }
 
-// Thêm đơn hàng vào cuối danh sách
 DoubleNode *insertOrder(DoubleNode *head, Order order) {
     DoubleNode *newNode = createDoubleNode(order);
     if (head == NULL) return newNode;
@@ -37,7 +35,6 @@ DoubleNode *insertOrder(DoubleNode *head, Order order) {
     return head;
 }
 
-// In toàn bộ đơn hàng
 void printOrders(DoubleNode *head) {
     DoubleNode *current = head;
     while (current != NULL) {
@@ -50,7 +47,6 @@ void printOrders(DoubleNode *head) {
     }
 }
 
-// Xóa đơn hàng theo ID
 DoubleNode* deleteOrder(DoubleNode *head, int id) {
     DoubleNode* current = head;
     while (current != NULL) {
@@ -74,7 +70,6 @@ DoubleNode* deleteOrder(DoubleNode *head, int id) {
     return head;
 }
 
-// Cập nhật đơn hàng theo ID
 DoubleNode* updateOrder(DoubleNode *head, int id) {
     DoubleNode* current = head;
     while (current != NULL) {
@@ -96,7 +91,6 @@ DoubleNode* updateOrder(DoubleNode *head, int id) {
     return head;
 }
 
-// Đánh dấu đã giao
 DoubleNode* markDelivered(DoubleNode *head, int id) {
     DoubleNode* current = head;
     while (current != NULL) {
@@ -111,29 +105,7 @@ DoubleNode* markDelivered(DoubleNode *head, int id) {
     return head;
 }
 
-// Sắp xếp theo tổng tiền (tăng dần)
-DoubleNode* sortOrdersByTotal(DoubleNode *head) {
-    if (head == NULL || head->next == NULL) return head;
-    int swapped;
-    DoubleNode *ptr1;
-    do {
-        swapped = 0;
-        ptr1 = head;
-        while (ptr1->next != NULL) {
-            if (ptr1->order.total > ptr1->next->order.total) {
-                Order temp = ptr1->order;
-                ptr1->order = ptr1->next->order;
-                ptr1->next->order = temp;
-                swapped = 1;
-            }
-            ptr1 = ptr1->next;
-        }
-    } while (swapped);
-    printf("Sorted by total.\n");
-    return head;
-}
 
-// Tìm kiếm đơn hàng theo ID
 void findOrder(DoubleNode *head, int id) {
     DoubleNode *current = head;
     while (current != NULL) {
@@ -150,7 +122,6 @@ void findOrder(DoubleNode *head, int id) {
     printf("Order not found.\n");
 }
 
-// Main menu
 int main() {
     int choice;
     do {
@@ -165,7 +136,7 @@ int main() {
         printf("8. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        getchar(); // clear buffer
+        getchar();
 
         switch (choice) {
             case 1: {
@@ -210,7 +181,6 @@ int main() {
                 break;
             }
             case 6:
-                headDouble = sortOrdersByTotal(headDouble);
                 break;
             case 7: {
                 int id;
